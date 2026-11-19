@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>RAID — Association Sportive · Centrale Méditerranée</title>
+<meta name="description" content="RAID, l'association sportive de Centrale Méditerranée (Château-Gombert) : run club, trail dans le massif de l'Étoile, natation, escalade, événements étudiants et inscriptions." />
+<meta property="og:title" content="RAID · Centrale Méditerranée" />
+<meta property="og:description" content="Course à pied, trail, événements étudiants : rejoins le RAID !" />
+<meta property="og:type" content="website" />
+<style>
+  :root {
+    --orange: #2e7d32;
+    --orange-dark: #1b5e20;
+    --dark: #12131a;
+    --dark2: #1c1e28;
+    --light: #f7f5f0;
+    --accent: #66bb6a;
+    --radius: 14px;
+    font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--light); color: var(--dark); }
+
+  /* ===== NAV ===== */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(18,19,26,.95); backdrop-filter: blur(8px);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.8rem 5vw; flex-wrap: wrap;
+  }
+  .logo { display: flex; align-items: center; gap: 0.6rem; color: #fff; font-weight: 800; font-size: 1.3rem; letter-spacing: 1px; }
+  .logo .badge {
+    background: linear-gradient(135deg, var(--orange), var(--accent));
+    width: 38px; height: 38px; border-radius: 10px;
+    display: grid; place-items: center; font-size: 1rem; color: var(--dark); font-weight: 900;
+  }
+  nav .links { display: flex; gap: 1.4rem; flex-wrap: wrap; }
+  nav a { color: #e8e6e0; text-decoration: none; font-size: 0.92rem; font-weight: 600; transition: color .2s; }
+  nav a:hover { color: var(--accent); }
+  .btn {
+    display: inline-block; border: none; cursor: pointer; text-decoration: none; text-align: center;
+    background: linear-gradient(135deg, var(--orange), #43a047); color: #fff;
+    padding: 0.75rem 1.5rem; border-radius: 999px; font-weight: 700; font-size: 0.95rem;
+    transition: transform .15s, box-shadow .2s;
+  }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(46,125,50,.4); }
+  .btn.ghost { background: transparent; border: 2px solid var(--orange); color: var(--orange); }
+  .btn.small { padding: 0.5rem 1.1rem; font-size: 0.85rem; }
+
+  /* ===== HERO ===== */
+  header.hero {
+    background:
+      radial-gradient(1200px 500px at 80% -10%, rgba(46,125,50,.35), transparent),
+      radial-gradient(800px 400px at 10% 110%, rgba(255,196,70,.2), transparent),
+      var(--dark);
+    color: #fff; padding: 7rem 5vw 6rem; position: relative; overflow: hidden;
+  }
+  header.hero::after {
+    content: ""; position: absolute; inset: auto 0 -1px 0; height: 60px;
+    background: var(--light); clip-path: ellipse(60% 100% at 50% 100%);
+  }
+  .hero h1 { font-size: clamp(2.4rem, 6vw, 4.2rem); line-height: 1.05; max-width: 750px; }
+  .hero h1 span {
+    background: linear-gradient(90deg, var(--orange), var(--accent));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .hero p.tagline { margin: 1.2rem 0 2rem; font-size: 1.15rem; color: #c9c7c0; max-width: 560px; }
+  .hero .cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .hero .stats { display: flex; gap: 2.5rem; margin-top: 3.5rem; flex-wrap: wrap; }
+  .hero .stats div strong { display: block; font-size: 2rem; color: var(--accent); }
+  .hero .stats div { color: #b8b6b0; font-size: 0.9rem; }
+
+  /* ===== SECTIONS ===== */
+  section { padding: 4.5rem 5vw; max-width: 1200px; margin: 0 auto; }
+  section h2 { font-size: clamp(1.7rem, 3.5vw, 2.4rem); margin-bottom: .4rem; }
+  section .kicker {
+    color: var(--orange); font-weight: 800; text-transform: uppercase; letter-spacing: 2px; font-size: .8rem;
+    display: block; margin-bottom: .5rem;
+  }
+  section > p.sub { color: #5c5a54; max-width: 640px; margin-bottom: 2.2rem; }
+
+  /* cards grid */
+  .grid { display: grid; gap: 1.4rem; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); }
+  .card {
+    background: #fff; border-radius: var(--radius); padding: 1.6rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,.06); border: 1px solid #eee;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .card:hover { transform: translateY(-4px); box-shadow: 0 12px 28px rgba(0,0,0,.10); }
+  .card .emoji { font-size: 1.9rem; }
+  .card h3 { margin: .7rem 0 .4rem; font-size: 1.15rem; }
+  .card p, .card li { color: #5c5a54; font-size: .93rem; line-height: 1.55; }
+  .card ul { padding-left: 1.1rem; margin-top: .4rem; }
+
+  /* event cards */
+  .event {
+    background: #fff; border-radius: var(--radius); overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,.06); border: 1px solid #eee;
+    display: flex; flex-direction: column; transition: transform .2s;
+  }
+  .event:hover { transform: translateY(-4px); }
+  .event .banner {
+    padding: 1.4rem 1.4rem 1.1rem; color: #fff;
+    background: linear-gradient(135deg, var(--orange), var(--orange-dark));
+  }
+  .event .banner.alt { background: linear-gradient(135deg, #2b6cb0, #1a4d85); }
+  .event .banner.gold { background: linear-gradient(135deg, #d69e2e, #b7791f); }
+  .event .banner.violet { background: linear-gradient(135deg, #805ad5, #6b46c1); }
+  .event .banner.green { background: linear-gradient(135deg, #38a169, #276749); }
+  .event .banner .date { font-weight: 800; font-size: .8rem; letter-spacing: 1.5px; text-transform: uppercase; opacity: .9; }
+  .event .banner h3 { font-size: 1.35rem; margin-top: .3rem; }
+  .event .body { padding: 1.2rem 1.4rem 1.5rem; display: flex; flex-direction: column; gap: .8rem; flex: 1; }
+  .event .body p { color: #5c5a54; font-size: .93rem; line-height: 1.55; flex: 1; }
+  .tag {
+    display: inline-block; background: #e8f5e9; color: var(--orange-dark);
+    font-size: .72rem; font-weight: 800; padding: .25rem .7rem; border-radius: 999px; letter-spacing: .5px;
+  }
+
+  /* schedule table */
+  table { width: 100%; border-collapse: collapse; background: #fff; border-radius: var(--radius); overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,.06); }
+  .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .table-wrap table { min-width: 640px; }
+  th, td { padding: .95rem 1.2rem; text-align: left; font-size: .93rem; }
+  thead th { background: var(--dark); color: #fff; font-size: .8rem; text-transform: uppercase; letter-spacing: 1px; }
+  tbody tr:nth-child(even) { background: #fbfaf7; }
+  tbody tr:hover { background: #e8f5e9; }
+  td.day { font-weight: 800; color: var(--orange-dark); }
+  .pill { display: inline-block; padding: .2rem .7rem; border-radius: 999px; font-size: .75rem; font-weight: 700; }
+  .pill.course { background: #e6fffa; color: #0d7d68; }
+  .pill.trail { background: #e9f7ef; color: #1f7a3d; }
+  .pill.femmes { background: #fce7f3; color: #b03676; }
+
+  /* shop */
+  .shop-grid { display: grid; gap: 1.4rem; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+  .product { background: #fff; border-radius: var(--radius); border: 1px solid #eee; box-shadow: 0 2px 10px rgba(0,0,0,.06); overflow: hidden; display: flex; flex-direction: column; }
+  .product .visuel { height: 150px; display: grid; place-items: center; font-size: 3.2rem; }
+  .product .visuel.v1 { background: linear-gradient(135deg, #a5d6a7, #2e7d32); }
+  .product .visuel.v2 { background: linear-gradient(135deg, #a1c4fd, #3b82f6); }
+  .product .visuel.v3 { background: linear-gradient(135deg, #84fab0, #2bb673); }
+  .product .visuel.v4 { background: linear-gradient(135deg, #fbc2eb, #a86bd6); }
+  .product .info { padding: 1.1rem 1.2rem 1.3rem; display: flex; flex-direction: column; gap: .6rem; flex: 1; }
+  .product h3 { font-size: 1.02rem; }
+  .product .prix { font-weight: 900; color: var(--orange-dark); font-size: 1.05rem; }
+  .product .info p { color: #5c5a54; font-size: .85rem; line-height: 1.5; flex: 1; }
+  .rupture { opacity: .55; }
+  .rupture .visuel { filter: grayscale(1); }
+  .badge-rupture { background: #eee; color: #777; font-size: .7rem; font-weight: 800; padding: .2rem .6rem; border-radius: 999px; text-transform: uppercase; }
+
+  /* form */
+  .form-wrap { background: #fff; border-radius: var(--radius); border: 1px solid #eee; box-shadow: 0 2px 10px rgba(0,0,0,.06); padding: 2rem; }
+  .form-grid { display: grid; gap: 1.1rem; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+  label { font-weight: 700; font-size: .85rem; display: block; margin-bottom: .35rem; color: #34322d; }
+  input, select, textarea {
+    width: 100%; padding: .7rem .9rem; border: 1.5px solid #ddd; border-radius: 10px;
+    font-size: .95rem; font-family: inherit; background: #fcfbf9; transition: border-color .2s;
+  }
+  input:focus, select:focus, textarea:focus { outline: none; border-color: var(--orange); }
+  .participants-list { margin-top: 1rem; }
+  .participant-row { display: grid; gap: .7rem; grid-template-columns: 2fr 1.5fr 1fr; margin-bottom: .7rem; }
+  #participants-note { font-size: .85rem; color: #5c5a54; margin-bottom: 1rem; }
+  .success {
+    display: none; margin-top: 1.2rem; background: #e9f7ef; color: #1f7a3d;
+    border: 1px solid #b7e4c3; padding: .9rem 1.1rem; border-radius: 10px; font-weight: 600; font-size: .92rem;
+  }
+
+  /* news */
+  article.news { background: #fff; border-radius: var(--radius); border: 1px solid #eee; box-shadow: 0 2px 10px rgba(0,0,0,.06); padding: 1.5rem; border-left: 5px solid var(--orange); }
+  article.news.alt { border-left-color: #3b82f6; }
+  article.news.alt2 { border-left-color: #805ad5; }
+  article.news time { font-size: .78rem; color: #999; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+  article.news h3 { margin: .4rem 0 .5rem; font-size: 1.1rem; }
+  article.news p { color: #5c5a54; font-size: .92rem; line-height: 1.6; }
+  .news-grid { display: grid; gap: 1.3rem; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); }
+
+  /* contact */
+  #contact { background: var(--dark); color: #fff; }
+  #contact::before { content: none; }
+  #contact h2 { color: #fff; }
+  #contact .kicker { color: var(--accent); }
+  #contact p.sub { color: #b8b6b0; }
+  .contact-grid { display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+  .contact-card { background: var(--dark2); border-radius: var(--radius); padding: 1.5rem; }
+  .contact-card .emoji { font-size: 1.6rem; }
+  .contact-card h3 { margin: .5rem 0 .3rem; font-size: 1rem; }
+  .contact-card p, .contact-card a { color: #c9c7c0; font-size: .9rem; text-decoration: none; line-height: 1.6; }
+  .contact-card a:hover { color: var(--accent); }
+
+  footer { background: #0b0c10; color: #888; text-align: center; padding: 1.6rem 5vw; font-size: .82rem; }
+  footer a { color: #aaa; }
+
+  @media (max-width: 640px) {
+    .participant-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#top" class="logo"><span class="badge">R</span> RAID · Centrale Med</a>
+  <div class="links">
+    <a href="#activites">Activités</a>
+    <a href="#horaires">Horaires</a>
+    <a href="#evenements">Événements</a>
+    <a href="#shop">Boutique</a>
+    <a href="#inscriptions">Inscriptions</a>
+    <a href="#actus">Actus</a>
+    <a href="#contact">Contact</a>
+    <a href="#inscriptions" class="btn small">Rejoindre le RAID</a>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <span class="kicker" style="color:var(--accent)">Association sportive étudiante · École Centrale Méditerranée</span>
+  <h1>Coure plus loin.<br />Repousse tes <span>limites</span>.</h1>
+  <p class="tagline">Le RAID, c'est le club d'endurance de Centrale Méditerranée (campus de Château-Gombert) : course à pied, trail, natation, escalade… entraînements hebdo, compétitions et événements, avec une bande de motivés.</p>
+  <div class="cta">
+    <a href="#inscriptions" class="btn">S'inscrire à un événement</a>
+    <a href="#horaires" class="btn ghost">Voir les horaires</a>
+  </div>
+  <div class="stats">
+    <div><strong>6</strong> séances par semaine</div>
+    <div><strong>100+</strong> membres actifs</div>
+    <div><strong>5+</strong> événements par an</div>
+    <div><strong>1</strong> équipe de folie 🔥</div>
+  </div>
+</header>
+
+<section id="activites">
+  <span class="kicker">Nos activités</span>
+  <h2>Le sport au rythme du campus</h2>
+  <p class="sub">Chaque semaine, le RAID propose des séances ouvertes à tous les niveaux, du débutant au compétiteur, encadrées par des étudiants passionnés.</p>
+  <div class="grid">
+    <div class="card">
+      <span class="emoji">🏊</span>
+      <h3>Natation</h3>
+      <p>Chaque mardi soir (20h-21h) à la piscine Saint-Charles, une séance encadrée pour travailler l'endurance aquatique, idéale pour préparer le triathlon.</p>
+    </div>
+    <div class="card">
+      <span class="emoji">⛰️</span>
+      <h3>Trail &amp; escalade</h3>
+      <p>Mercredi après-midi (16h30), direction le massif de l'Étoile : montées, single tracks et un max de dénivelé positif. Escalade également les week-ends.</p>
+    </div>
+    <div class="card">
+      <span class="emoji">🏃</span>
+      <h3>Run Club &amp; Women Run Club</h3>
+      <p>Le dimanche à 10h, départ sous les miroirs du Vieux-Port pour une sortie conviviale. Le Women Run Club investit le même départ tous les premiers dimanches du mois.</p>
+    </div>
+    <div class="card">
+      <span class="emoji">🥇</span>
+      <h3>Course performance &amp; compétitions</h3>
+      <p>Jeudi après-midi, séance performance (VMA, fractionné) sur la piste du stade Jean-Bouin. Et toute l'année : inter-liste, backyard, triathlon et autres défis hors normes.</p>
+    </div>
+  </div>
+</section>
+
+<section id="horaires">
+  <span class="kicker">Horaires &amp; lieux</span>
+  <h2>Où et quand on se retrouve</h2>
+  <p class="sub">Toutes les séances sont ouvertes aux membres, adhésion annuelle requise. Prévois tes baskets (ou ton maillot), on s'occupe du reste.</p>
+  <div class="table-wrap">
+  <table>
+    <thead>
+      <tr><th>Jour</th><th>Horaire</th><th>Activité</th><th>Type</th><th>Lieu de rendez-vous</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="day">Mardi</td><td>20h00 – 21h00</td><td>Natation (séance encadrée)</td><td><span class="pill course">Natation</span></td><td>Piscine Saint-Charles</td></tr>
+      <tr><td class="day">Mercredi</td><td>16h30 – 18h30</td><td>Trail (sortie nature)</td><td><span class="pill trail">Trail</span></td><td>Massif de l'Étoile</td></tr>
+      <tr><td class="day">Jeudi</td><td>16h30 – 18h00</td><td>Course performance (VMA / fractionné)</td><td><span class="pill course">Performance</span></td><td>Piste du stade Jean-Bouin</td></tr>
+      <tr><td class="day">Week-end</td><td>Séances en journée</td><td>Escalade (séance week-end)</td><td><span class="pill trail">Escalade</span></td><td>Lieu communiqué aux inscrits</td></tr>
+      <tr><td class="day">Dimanche</td><td>10h00 – 11h30</td><td>Run Club</td><td><span class="pill course">Run Club</span></td><td>Sous les miroirs du Vieux-Port</td></tr>
+      <tr><td class="day">1er dimanche du mois</td><td>10h00 – 11h30</td><td>Women Run Club</td><td><span class="pill femmes">Féminines</span></td><td>Sous les miroirs du Vieux-Port</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section id="evenements">
+  <span class="kicker">Événements majeurs</span>
+  <h2>Les RDV à ne pas manquer</h2>
+  <p class="sub">Tout au long de l'année, le RAID organise et participe aux temps forts de la vie sportive de l'école.</p>
+  <div class="grid">
+    <div class="event">
+      <div class="banner"><span class="date">Septembre · Début d'année</span><h3>Raid d'Intégration</h3></div>
+      <div class="body">
+        <p>Le week-end d'intégration sportive du RAID : découverte des activités, parcours d'orientation, course à thème, barbecue et soirée. L'événement idéal pour rencontrer toute l'équipe et te lancer.</p>
+        <div><span class="tag">Tous niveaux</span> <span class="tag">1er semestre</span></div>
+        <a href="#inscriptions" class="btn small">Je m'inscris</a>
+      </div>
+    </div>
+    <div class="event">
+      <div class="banner violet"><span class="date">Avril</span><h3>Le Backyard</h3></div>
+      <div class="body">
+        <p>Le fameux format Backyard Ultra : 6,7 km à boucler en moins d'une heure, encore et encore. Le dernier coureur debout l'emporte. Un défi de dépassement de soi devenu légendaire sur le campus.</p>
+        <div><span class="tag">Endurance</span> <span class="tag">Défi individuel</span></div>
+        <a href="#inscriptions" class="btn small">Je m'inscris</a>
+      </div>
+    </div>
+    <div class="event">
+      <div class="banner gold"><span class="date">Mars</span><h3>Compétition Inter-Liste</h3></div>
+      <div class="body">
+        <p>Les listes d'élèves s'affrontent sur les pistes ! Cross par équipes où chaque point compte pour faire monter ta liste au classement. Ambiance garantie, supporters bienvenus.</p>
+        <div><span class="tag">Par équipes</span> <span class="tag">Esprit liste</span></div>
+        <a href="#inscriptions" class="btn small">Je m'inscris</a>
+      </div>
+    </div>
+    <div class="event">
+      <div class="banner green"><span class="date">Mai</span><h3>Week-end Rando</h3></div>
+      <div class="body">
+        <p>Deux jours de randonnée en pleine nature pour clore l'année en beauté : bivouac, sommets, paysages grandioses et soirée au coin du feu. Ouvert à tous, en famille d'asso.</p>
+        <div><span class="tag">2 jours</span> <span class="tag">Tous niveaux</span></div>
+        <a href="#inscriptions" class="btn small">Je m'inscris</a>
+      </div>
+    </div>
+    <div class="event">
+      <div class="banner alt"><span class="date">Juin</span><h3>Triathlon</h3></div>
+      <div class="body">
+        <p>Natation, vélo, course : le triathlon étudiant annuel, en équipe ou en individuel. Relais possibles pour les débutants qui veulent goûter aux trois disciplines sans tout enchaîner, avec les séances de natation du mardi pour se préparer.</p>
+        <div><span class="tag">Individuel ou relais</span> <span class="tag">2e semestre</span></div>
+        <a href="#inscriptions" class="btn small">Je m'inscris</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="shop">
+  <span class="kicker">Boutique</span>
+  <h2>La merch RAID</h2>
+  <p class="sub">Arbore les couleurs du club ! Commande par mail ou téléphone, remise en main propre sur le campus. <em>(Prix indicatifs à ajuster par le bureau du club.)</em></p>
+  <div class="shop-grid">
+    <div class="product">
+      <div class="visuel v1">👕</div>
+      <div class="info"><h3>Tee-shirt RAID 2026</h3><p>Coton bio, sérigraphie aux couleurs du club, coupe unisexe.</p><span class="prix">15 €</span><a href="#contact" class="btn small">Commander</a></div>
+    </div>
+    <div class="product">
+      <div class="visuel v2">🧥</div>
+      <div class="info"><h3>Pull du RAID</h3><p>Molleton épais, broderie RAID, pour afficher ta fierté de club tout l'hiver.</p><span class="prix">35 €</span><a href="#contact" class="btn small">Commander</a></div>
+    </div>
+    <div class="product">
+      <div class="visuel v3">🕶️</div>
+      <div class="info"><h3>Lunettes de cyclisme du RAID</h3><p>Écran anti-UV, aération anti-buée, logo du club sur la branche.</p><span class="prix">25 €</span><a href="#contact" class="btn small">Commander</a></div>
+    </div>
+    <div class="product">
+      <div class="visuel v4">🎒</div>
+      <div class="info"><h3>Gourde inox RAID</h3><p>500 ml, gravure laser du logo, ta alliée des longues sorties.</p><span class="prix">12 €</span><a href="#contact" class="btn small">Commander</a></div>
+    </div>
+  </div>
+</section>
+
+<section id="inscriptions">
+  <span class="kicker">Inscriptions</span>
+  <h2>Liste des participants</h2>
+  <p class="sub">Remplis ce formulaire pour t'inscrire à un événement ou rejoindre une séance régulière. Le responsable de l'événement te confirmera par mail les détails du RDV.</p>
+  <div class="form-wrap">
+    <form id="formInscription" onsubmit="return validerInscription(event)">
+      <div class="form-grid">
+        <div>
+          <label for="nom">Nom *</label>
+          <input id="nom" name="nom" type="text" required placeholder="Ton nom" />
+        </div>
+        <div>
+          <label for="prenom">Prénom *</label>
+          <input id="prenom" name="prenom" type="text" required placeholder="Ton prénom" />
+        </div>
+        <div>
+          <label for="email">Email *@centrale-mediterranee.eu</label>
+          <input id="email" name="email" type="email" required placeholder="prenom.nom" />
+        </div>
+        <div>
+          <label for="maison">Liste d'élève</label>
+          <select id="maison" name="maison">
+            <option>Sélectionne ta liste…</option>
+            <option>Liste 1</option><option>Liste 2</option>
+            <option>Liste 3</option><option>Liste 4</option>
+            <option>Autre / extérieur</option>
+          </select>
+        </div>
+        <div>
+          <label for="evenement">Événement / activité *</label>
+          <select id="evenement" name="evenement" required>
+            <option value="">Sélectionne…</option>
+            <option>Raid d'Intégration (septembre)</option>
+            <option>Compétition Inter-Liste (mars)</option>
+            <option>Le Backyard (avril)</option>
+            <option>Week-end Rando (mai)</option>
+            <option>Triathlon (juin)</option>
+            <option>Natation (mardi soir)</option>
+            <option>Trail (mercredi après-midi)</option>
+            <option>Escalade (week-end)</option>
+            <option>Run Club (dimanche)</option>
+            <option>Women Run Club (1er dimanche du mois)</option>
+            <option>Course performance (jeudi)</option>
+          </select>
+        </div>
+        <div>
+          <label for="niveau">Niveau de pratique</label>
+          <select id="niveau" name="niveau">
+            <option>Débutant</option>
+            <option>Intermédiaire</option>
+            <option>Confirmé / compétiteur</option>
+          </select>
+        </div>
+      </div>
+      <div class="participants-list">
+        <label>Ajouter des coéquipiers (optionnel)</label>
+        <p id="participants-note">Pour les épreuves par équipes (triathlon relais, inter-liste), tu peux inscrire jusqu'à 3 coéquipiers.</p>
+        <div id="rowsEquipe"></div>
+        <button type="button" class="btn ghost small" onclick="ajouterEquipe()">+ Ajouter un coéquipier</button>
+      </div>
+      <div style="margin-top: 1.5rem;">
+        <label for="message">Message (optionnel)</label>
+        <textarea id="message" name="message" rows="3" placeholder="Question, contrainte horaire, info utile…"></textarea>
+      </div>
+      <div style="margin-top: 1.5rem;">
+        <button type="submit" class="btn">Envoyer mon inscription</button>
+      </div>
+      <div id="confirmation" class="success"></div>
+    </form>
+  </div>
+</section>
+
+<section id="actus">
+  <span class="kicker">Actualités</span>
+  <h2>Le blog du RAID</h2>
+  <p class="sub">Résultats, annonces, récettes de courses et coulisses de l'asso : tout ce qu'il faut savoir est ici.</p>
+  <div class="news-grid">
+    <article class="news">
+      <time datetime="2026-09-05">5 sept. 2026</time>
+      <h3>Le Backyard revient en avril !</h3>
+      <p>Inscriptions ouvertes pour la 3e édition. L'an dernier, la dernière boucle a eu lieu après 14 heures de course : qui ira plus loin cette année ? Réponse au mois d'avril. Prépare ta lampe frontale.</p>
+    </article>
+    <article class="news alt">
+      <time datetime="2026-09-01">1er sept. 2026</time>
+      <h3>Bienvenue aux nouveaux Centraux !</h3>
+      <p>L'intégration RAID approche : deux jours de découvertes sportives pour percer dans l'asso. Toutes les infos et la liste des participants sont en ligne dans la rubrique Inscriptions.</p>
+    </article>
+    <article class="news alt2">
+      <time datetime="2026-06-15">15 juin 2026</time>
+      <h3>Résultats du triathlon</h3>
+      <p>Bravo aux 42 finishers de cette édition ! Podium vibrant à l'arrivée, records personnels en pagaille, et un immense merci aux bénévoles sans qui rien ne serait possible.</p>
+    </article>
+  </div>
+</section>
+
+<section id="contact">
+  <span class="kicker">Contact</span>
+  <h2>Une question ? Écris-nous</h2>
+  <p class="sub">Le bureau du RAID te répond sous 48 h pendant l'année scolaire.</p>
+  <div class="contact-grid">
+    <div class="contact-card">
+      <span class="emoji">✉️</span>
+      <h3>Email</h3>
+      <p><a href="mailto:contact.raidecm@gmail.com">contact.raidecm@gmail.com</a></p>
+    </div>
+    <div class="contact-card">
+      <span class="emoji">📞</span>
+      <h3>Téléphone</h3>
+      <p><a href="tel:+33774817911">07 74 81 79 11</a></p>
+      <p>Le bureau te répond sous 48 h pendant l'année scolaire.</p>
+    </div>
+    <div class="contact-card">
+      <span class="emoji">📱</span>
+      <h3>Instagram</h3>
+      <p><a href="https://www.instagram.com/raid_ecm">@raid_ecm</a></p>
+      <p>Suis-nous pour les annonces, photos de courses et coulisses de l'asso !</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>RAID — Association sportive des élèves de Centrale Méditerranée · Campus de Château-Gombert, 13013 Marseille · Site réalisé par et pour les étudiants.</p>
+</footer>
+
+<script>
+  // --- Coéquipiers dynamiques (formulaire liste de participants) ---
+  let nbEquipe = 0;
+  function ajouterEquipe() {
+    if (nbEquipe >= 3) {
+      alert("Maximum 3 coéquipiers ajoutés.");
+      return;
+    }
+    nbEquipe++;
+    const row = document.createElement("div");
+    row.className = "participant-row";
+    row.innerHTML =
+      '<input type="text" name="equipe' + nbEquipe + '_nom" placeholder="Nom du coéquipier" />' +
+      '<input type="text" name="equipe' + nbEquipe + '_prenom" placeholder="Prénom" />' +
+      '<input type="email" name="equipe' + nbEquipe + '_email" placeholder="Email (optionnel)" />';
+    document.getElementById("rowsEquipe").appendChild(row);
+  }
+
+  // --- Validation & confirmation ---
+  function validerInscription(e) {
+    e.preventDefault();
+    const form = e.target;
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return false;
+    }
+    const prenom = document.getElementById("prenom").value.trim();
+    const ev = document.getElementById("evenement").value;
+    const box = document.getElementById("confirmation");
+    box.style.display = "block";
+    box.textContent = "✅ Merci " + prenom + " ! Ton inscription à « " + ev +
+      " » est enregistrée. Le responsable te contactera très vite. Liste des participants mise à jour !";
+    // Réinitialise le formulaire et rend le bouton à nouveau cliquable après un court délai.
+    form.reset();
+    rowsEquipe.innerHTML = "";
+    nbEquipe = 0;
+    const btn = form.querySelector('button[type="submit"]');
+    btn.disabled = true;
+    setTimeout(function () { btn.disabled = false; box.style.display = "none"; }, 6000);
+    return false;
+  }
+</script>
+</body>
+</html>
